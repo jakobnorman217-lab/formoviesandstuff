@@ -298,6 +298,15 @@ void RenderUpscaled(AppState &state)
     state.context->OMSetRenderTargets(1, state.rtv.GetAddressOf(), nullptr);
     state.context->ClearRenderTargetView(state.rtv.Get(), clearColor);
 
+    D3D11_VIEWPORT viewport = {};
+    viewport.TopLeftX = 0.0f;
+    viewport.TopLeftY = 0.0f;
+    viewport.Width = static_cast<FLOAT>(state.backbufferWidth);
+    viewport.Height = static_cast<FLOAT>(state.backbufferHeight);
+    viewport.MinDepth = 0.0f;
+    viewport.MaxDepth = 1.0f;
+    state.context->RSSetViewports(1, &viewport);
+
     ID3D11ShaderResourceView *srvs[] = { state.upscaledSRV.Get() };
     state.context->PSSetShaderResources(0, 1, srvs);
     state.context->PSSetSamplers(0, 1, state.linearSampler.GetAddressOf());

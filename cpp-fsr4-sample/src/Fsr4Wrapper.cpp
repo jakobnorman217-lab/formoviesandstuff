@@ -34,9 +34,9 @@ bool Fsr4Wrapper::Initialize(const Fsr4InitParams &params)
         return false;
 
     if (params.outputTexture)
-        *params.outputTexture = m_outputTexture.Get();
+        m_outputTexture.CopyTo(params.outputTexture);
     if (params.outputSRV)
-        *params.outputSRV = m_outputSRV.Get();
+        m_outputSRV.CopyTo(params.outputSRV);
 
     return true;
 }
